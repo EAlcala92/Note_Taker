@@ -4,7 +4,7 @@ const fs = require("fs");
 const generateUniqueId = require("generate-unique-id");
 
 const editNote = (updatedNotesArray) => {
-  fs.writeFile("./db/db.json", JSON.stringify(updatedNotesArray), (err) => {
+  fs.writeFile(".db.json", JSON.stringify(updatedNotesArray), (err) => {
     if (err) throw err;
   });
 };
@@ -15,7 +15,7 @@ module.exports = (app) => {
   app.get("/api/notes", (req, res) => {
 
     // Read the db.json file and return all saved notes as JSON.
-    fs.readFile("./db/db.json", "utf8", (err, data) => {
+    fs.readFile(".db.json", "utf8", (err, data) => {
       if (err) throw err;
 
       // Turns the JSON string into a JavaScript object
@@ -28,7 +28,7 @@ module.exports = (app) => {
 
     // Receives a new note, adds it to the db.json file, then returns the new note
     const newNote = req.body;
-    fs.readFile("./db/db.json", "utf8", (err, data) => {
+    fs.readFile(".db.json", "utf8", (err, data) => {
       if (err) throw err;
 
       // Turns the JSON string into a JavaScript object
@@ -50,7 +50,7 @@ module.exports = (app) => {
   // Setups the /api/notes/:id delete route
   app.delete("/api/notes/:id", (req, res) => {
     const deleteId = req.params.id;
-    fs.readFile("./db/db.json", "utf8", (err, data) => {
+    fs.readFile(".db.json", "utf8", (err, data) => {
       if (err) throw err;
       let notesArr = JSON.parse(data);
 
@@ -70,7 +70,7 @@ module.exports = (app) => {
   app.put("/api/notes/:id", (req, res) => {
     const editId = req.params.id;
 
-    fs.readFile("./db/db.json", "utf8", (err, data) => {
+    fs.readFile(".db.json", "utf8", (err, data) => {
       if (err) throw err;
 
       let notesArr = JSON.parse(data);
